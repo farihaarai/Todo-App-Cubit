@@ -1,4 +1,4 @@
-# todo_app_cubit
+# TODO APP
 
 A new Flutter project.
 
