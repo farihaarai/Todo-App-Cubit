@@ -9,7 +9,7 @@ part 'todos_state.g.dart';
 class TodosState {
   final List<Todo> todos;
 
-  TodosState({required this.todos});
+  TodosState({this.todos = const []});
   factory TodosState.fromJson(Map<String, dynamic> json) =>
       _$TodosStateFromJson(json);
 

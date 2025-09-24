@@ -11,11 +11,11 @@ abstract class _$UserCWProxy {
 
   User password(String password);
 
-  User name(String name);
+  User name(String? name);
 
-  User age(int age);
+  User age(int? age);
 
-  User gender(String gender);
+  User gender(String? gender);
 
   /// Creates a new instance with the provided field values.
   /// Passing `null` to a nullable field nullifies it, while `null` for a non-nullable field is ignored. To update a single field use `User(...).copyWith.fieldName(value)`.
@@ -27,9 +27,9 @@ abstract class _$UserCWProxy {
   User call({
     String email,
     String password,
-    String name,
-    int age,
-    String gender,
+    String? name,
+    int? age,
+    String? gender,
   });
 }
 
@@ -47,13 +47,13 @@ class _$UserCWProxyImpl implements _$UserCWProxy {
   User password(String password) => call(password: password);
 
   @override
-  User name(String name) => call(name: name);
+  User name(String? name) => call(name: name);
 
   @override
-  User age(int age) => call(age: age);
+  User age(int? age) => call(age: age);
 
   @override
-  User gender(String gender) => call(gender: gender);
+  User gender(String? gender) => call(gender: gender);
 
   @override
   /// Creates a new instance with the provided field values.
@@ -79,18 +79,18 @@ class _$UserCWProxyImpl implements _$UserCWProxy {
           ? _value.password
           // ignore: cast_nullable_to_non_nullable
           : password as String,
-      name: name == const $CopyWithPlaceholder() || name == null
+      name: name == const $CopyWithPlaceholder()
           ? _value.name
           // ignore: cast_nullable_to_non_nullable
-          : name as String,
-      age: age == const $CopyWithPlaceholder() || age == null
+          : name as String?,
+      age: age == const $CopyWithPlaceholder()
           ? _value.age
           // ignore: cast_nullable_to_non_nullable
-          : age as int,
-      gender: gender == const $CopyWithPlaceholder() || gender == null
+          : age as int?,
+      gender: gender == const $CopyWithPlaceholder()
           ? _value.gender
           // ignore: cast_nullable_to_non_nullable
-          : gender as String,
+          : gender as String?,
     );
   }
 }

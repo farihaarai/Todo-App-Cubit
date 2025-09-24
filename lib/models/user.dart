@@ -8,9 +8,9 @@ part 'user.g.dart';
 class User {
   final String email;
   final String password;
-  final String name;
-  final int age;
-  final String gender;
+  final String? name;
+  final int? age;
+  final String? gender;
 
   User({
     this.email = '',
