@@ -11,11 +11,10 @@ class SignupScreen extends StatelessWidget {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController ageController = TextEditingController();
+  String selectedGender = 'f';
 
   @override
   Widget build(BuildContext context) {
-    String selectedGender = 'f'; // default gender
-
     return Scaffold(
       appBar: AppBar(title: const Text("Sign Up")),
       body: Padding(

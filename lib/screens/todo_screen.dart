@@ -18,7 +18,7 @@ class TodoScreen extends StatelessWidget {
           PopupMenuButton<String>(
             onSelected: (value) {
               if (value == 'edit_profile') {
-                // navigate to edit profile
+                context.go('/edit-profile');
               } else if (value == 'change_password') {
                 context.go('/change-password');
               } else if (value == 'logout') {
@@ -42,7 +42,7 @@ class TodoScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // 👤 User Info
+            //  User Info
             BlocBuilder<UsersCubit, User?>(
               builder: (context, user) {
                 if (user == null) {

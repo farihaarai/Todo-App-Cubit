@@ -1,14 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:todo_app_cubit/cubit/users_cubit.dart';
+import 'package:todo_app_cubit/models/requests/auth_requests.dart';
+import 'package:todo_app_cubit/models/user.dart';
 
 class EditProfileScreen extends StatelessWidget {
-  EditProfileScreen({super.key});
+  final User user; // current user passed from TodoScreen
+
+  EditProfileScreen({super.key, required this.user});
 
   final TextEditingController nameController = TextEditingController();
   final TextEditingController ageController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    String selectedGender = "f"; // default
+    // Initialize controllers only once using the passed user
+    nameController.text = user.name!;
+    ageController.text = user.age.toString();
+    String selectedGender = user.gender!; // dropdown initial value
 
     return Scaffold(
       appBar: AppBar(title: const Text("Edit Profile")),
@@ -31,16 +41,21 @@ class EditProfileScreen extends StatelessWidget {
             Row(
               children: [
                 const Text("Gender: "),
-                DropdownButton<String>(
-                  value: selectedGender,
-                  items: ["f", "m"]
-                      .map((g) => DropdownMenuItem(value: g, child: Text(g)))
-                      .toList(),
-                  onChanged: (val) {
-                    if (val != null) {
-                      selectedGender = val; // used when saving
-                    }
-                  },
+                StatefulBuilder(
+                  // to rebuild dropdown in a stateless widget
+                  builder: (context, setState) => DropdownButton<String>(
+                    value: selectedGender,
+                    items: ["f", "m"]
+                        .map((g) => DropdownMenuItem(value: g, child: Text(g)))
+                        .toList(),
+                    onChanged: (val) {
+                      if (val != null) {
+                        setState(() {
+                          selectedGender = val;
+                        });
+                      }
+                    },
+                  ),
                 ),
               ],
             ),
@@ -48,30 +63,33 @@ class EditProfileScreen extends StatelessWidget {
             Center(
               child: ElevatedButton(
                 onPressed: () async {
-                  // final name = nameController.text.trim();
-                  // final age = int.tryParse(ageController.text) ?? 0;
-                  // // final success = await updateUserProfile(
-                  // //   name: name,
-                  // //   age: age,
-                  // //   gender: selectedGender,
-                  // // );
+                  final name = nameController.text.trim();
+                  final age = int.tryParse(ageController.text) ?? 0;
+                  if (name.isEmpty || age <= 0) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text("Please enter valid details"),
+                      ),
+                    );
+                    return;
+                  }
 
-                  // if (context.mounted) {
-                  //   if (success) {
-                  //     Navigator.pop(context);
-                  //     ScaffoldMessenger.of(context).showSnackBar(
-                  //       const SnackBar(
-                  //         content: Text("Profile updated successfully"),
-                  //       ),
-                  //     );
-                  //   } else {
-                  //     ScaffoldMessenger.of(context).showSnackBar(
-                  //       const SnackBar(
-                  //         content: Text("Failed to update profile"),
-                  //       ),
-                  //     );
-                  //   }
-                  // }
+                  await context.read<UsersCubit>().updateUserProfile(
+                    UpdateUserRequest(
+                      age: age,
+                      name: name,
+                      gender: selectedGender,
+                    ),
+                  );
+
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text("Profile updated successfully"),
+                    ),
+                  );
+
+                  // Navigate back
+                  context.go('/todos');
                 },
                 child: const Text("Save Profile"),
               ),
@@ -81,6 +99,4 @@ class EditProfileScreen extends StatelessWidget {
       ),
     );
   }
-
-  /// Dummy function — replace with your API call
 }
