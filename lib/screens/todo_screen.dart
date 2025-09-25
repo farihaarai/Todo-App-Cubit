@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:todo_app_cubit/cubit/todos_cubit.dart';
 import 'package:todo_app_cubit/cubit/users_cubit.dart';
+import 'package:todo_app_cubit/models/requests/todo_requests.dart';
 import 'package:todo_app_cubit/models/states/todos_state.dart';
 import 'package:todo_app_cubit/models/user.dart';
 
@@ -83,18 +84,24 @@ class TodoScreen extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(width: 10),
-                ElevatedButton(
-                  onPressed: () {
-                    final todo = _textController.text.trim();
-                    if (todo.isNotEmpty) {
-                      // TODO: add todo
-                      ScaffoldMessenger.of(
-                        context,
-                      ).showSnackBar(SnackBar(content: Text('Added: $todo')));
-                      _textController.clear();
-                    }
+                BlocBuilder<TodosCubit, TodosState>(
+                  builder: (context, state) {
+                    return ElevatedButton(
+                      onPressed: () {
+                        final todo = _textController.text.trim();
+                        if (todo.isNotEmpty) {
+                          context.read<TodosCubit>().addTodo(
+                            AddTodoRequest(description: todo),
+                          );
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text('Added: $todo')),
+                          );
+                          _textController.clear();
+                        }
+                      },
+                      child: const Text("Add"),
+                    );
                   },
-                  child: const Text("Add"),
                 ),
               ],
             ),

@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:todo_app_cubit/models/requests/auth_requests.dart';
+import 'package:todo_app_cubit/models/requests/todo_requests.dart';
 import 'package:todo_app_cubit/models/responses/auth_response.dart';
 import 'package:todo_app_cubit/models/todo.dart';
 import 'package:todo_app_cubit/models/user.dart';
@@ -41,4 +42,7 @@ abstract class AuthRequestRestClient {
   // ---------- TODOS -----------
   @GET('/user/toDo')
   Future<List<Todo>> getUserTodos();
+
+  @POST('/user/toDo')
+  Future<Todo> addTodo(@Body() AddTodoRequest request);
 }
