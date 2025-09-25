@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo_app_cubit/cubit/todos_cubit.dart';
 import 'package:todo_app_cubit/models/requests/auth_requests.dart';
@@ -9,9 +10,8 @@ class UsersCubit extends Cubit<User?> {
 
   UsersCubit() : super(null);
 
-  final todosCubit = TodosCubit();
   // LOGIN
-  Future<User?> login(LoginRequest requests) async {
+  Future<User?> login(TodosCubit todosCubit, LoginRequest requests) async {
     try {
       final response = await client.login(requests);
       token = response.jwtToken;
@@ -79,5 +79,11 @@ class UsersCubit extends Cubit<User?> {
       print("User updatation failed: $e");
       return false;
     }
+  }
+
+  void logout() {
+    token = '';
+    setAuthToken('');
+    emit(null);
   }
 }

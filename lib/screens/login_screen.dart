@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:todo_app_cubit/cubit/todos_cubit.dart';
 import 'package:todo_app_cubit/cubit/users_cubit.dart';
 import 'package:todo_app_cubit/models/requests/auth_requests.dart';
 import 'package:todo_app_cubit/models/user.dart';
@@ -17,6 +18,7 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    TodosCubit todosCubit = BlocProvider.of<TodosCubit>(context);
     return Scaffold(
       appBar: AppBar(title: const Text("Login")),
       body: Padding(
@@ -41,6 +43,7 @@ class LoginScreen extends StatelessWidget {
                 ElevatedButton(
                   onPressed: () async {
                     final user = await context.read<UsersCubit>().login(
+                      todosCubit,
                       LoginRequest(
                         email: emailController.text.trim(),
                         password: passwordController.text.trim(),

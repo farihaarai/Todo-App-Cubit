@@ -24,7 +24,8 @@ class TodoScreen extends StatelessWidget {
               } else if (value == 'change_password') {
                 context.go('/change-password');
               } else if (value == 'logout') {
-                // Example: context.read<UsersCubit>().logout();
+                context.read<UsersCubit>().logout();
+                context.go('/');
               }
             },
             itemBuilder: (context) => const [
