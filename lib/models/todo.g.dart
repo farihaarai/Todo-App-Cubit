@@ -11,7 +11,7 @@ abstract class _$TodoCWProxy {
 
   Todo description(String description);
 
-  Todo isCompleted(bool isCompleted);
+  Todo isCompleted(bool? isCompleted);
 
   /// Creates a new instance with the provided field values.
   /// Passing `null` to a nullable field nullifies it, while `null` for a non-nullable field is ignored. To update a single field use `Todo(...).copyWith.fieldName(value)`.
@@ -20,7 +20,7 @@ abstract class _$TodoCWProxy {
   /// ```dart
   /// Todo(...).copyWith(id: 12, name: "My name")
   /// ```
-  Todo call({int id, String description, bool isCompleted});
+  Todo call({int id, String description, bool? isCompleted});
 }
 
 /// Callable proxy for `copyWith` functionality.
@@ -37,7 +37,7 @@ class _$TodoCWProxyImpl implements _$TodoCWProxy {
   Todo description(String description) => call(description: description);
 
   @override
-  Todo isCompleted(bool isCompleted) => call(isCompleted: isCompleted);
+  Todo isCompleted(bool? isCompleted) => call(isCompleted: isCompleted);
 
   @override
   /// Creates a new instance with the provided field values.
@@ -62,11 +62,10 @@ class _$TodoCWProxyImpl implements _$TodoCWProxy {
           ? _value.description
           // ignore: cast_nullable_to_non_nullable
           : description as String,
-      isCompleted:
-          isCompleted == const $CopyWithPlaceholder() || isCompleted == null
+      isCompleted: isCompleted == const $CopyWithPlaceholder()
           ? _value.isCompleted
           // ignore: cast_nullable_to_non_nullable
-          : isCompleted as bool,
+          : isCompleted as bool?,
     );
   }
 }
@@ -85,7 +84,7 @@ extension $TodoCopyWith on Todo {
 Todo _$TodoFromJson(Map<String, dynamic> json) => Todo(
   id: (json['id'] as num).toInt(),
   description: json['description'] as String,
-  isCompleted: json['isCompleted'] as bool? ?? false,
+  isCompleted: json['isCompleted'] as bool?,
 );
 
 Map<String, dynamic> _$TodoToJson(Todo instance) => <String, dynamic>{

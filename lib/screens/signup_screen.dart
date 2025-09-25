@@ -55,22 +55,26 @@ class SignupScreen extends StatelessWidget {
             Row(
               children: [
                 const Text("Gender: "),
-                const SizedBox(width: 10),
-                DropdownButton<String>(
-                  value: selectedGender,
-                  items: ["f", "m"]
-                      .map(
-                        (g) => DropdownMenuItem(
-                          value: g,
-                          child: Text(g.toUpperCase()),
-                        ),
-                      )
-                      .toList(),
-                  onChanged: (val) {
-                    if (val != null) {
-                      selectedGender = val;
-                    }
-                  },
+                SizedBox(width: 20),
+                StatefulBuilder(
+                  builder: (context, setState) => DropdownButton<String>(
+                    value: selectedGender,
+                    items: ["f", "m"]
+                        .map(
+                          (g) => DropdownMenuItem(
+                            value: g,
+                            child: Text(g.toUpperCase()),
+                          ),
+                        )
+                        .toList(),
+                    onChanged: (val) {
+                      if (val != null) {
+                        setState(() {
+                          selectedGender = val;
+                        });
+                      }
+                    },
+                  ),
                 ),
               ],
             ),

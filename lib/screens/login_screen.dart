@@ -8,8 +8,12 @@ import 'package:todo_app_cubit/models/user.dart';
 class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});
 
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController emailController = TextEditingController(
+    text: "fariha@g.com",
+  );
+  final TextEditingController passwordController = TextEditingController(
+    text: "1234",
+  );
 
   @override
   Widget build(BuildContext context) {

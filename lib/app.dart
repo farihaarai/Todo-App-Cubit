@@ -12,7 +12,7 @@ class TodoApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (_) => UsersCubit()),
-        BlocProvider(create: (_) => TodosCubit()),
+        BlocProvider(create: (_) => TodosCubit()..fetchTodos()),
       ],
       child: MaterialApp.router(
         debugShowCheckedModeBanner: false,

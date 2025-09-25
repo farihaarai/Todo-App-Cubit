@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:todo_app_cubit/cubit/todos_cubit.dart';
 import 'package:todo_app_cubit/models/requests/auth_requests.dart';
 import 'package:todo_app_cubit/models/user.dart';
 import 'package:todo_app_cubit/network/client.dart';
@@ -8,6 +9,7 @@ class UsersCubit extends Cubit<User?> {
 
   UsersCubit() : super(null);
 
+  final todosCubit = TodosCubit();
   // LOGIN
   Future<User?> login(LoginRequest requests) async {
     try {
@@ -15,6 +17,9 @@ class UsersCubit extends Cubit<User?> {
       token = response.jwtToken;
       setAuthToken(token);
       final user = await getUser();
+      if (user != null) {
+        await todosCubit.fetchTodos();
+      }
       return user;
     } catch (e) {
       print("Login failed: $e");

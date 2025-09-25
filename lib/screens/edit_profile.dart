@@ -41,12 +41,17 @@ class EditProfileScreen extends StatelessWidget {
             Row(
               children: [
                 const Text("Gender: "),
+                SizedBox(width: 20),
                 StatefulBuilder(
-                  // to rebuild dropdown in a stateless widget
                   builder: (context, setState) => DropdownButton<String>(
                     value: selectedGender,
                     items: ["f", "m"]
-                        .map((g) => DropdownMenuItem(value: g, child: Text(g)))
+                        .map(
+                          (g) => DropdownMenuItem(
+                            value: g,
+                            child: Text(g.toUpperCase()),
+                          ),
+                        )
                         .toList(),
                     onChanged: (val) {
                       if (val != null) {

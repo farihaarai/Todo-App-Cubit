@@ -59,11 +59,9 @@ extension $TodosStateCopyWith on TodosState {
 // **************************************************************************
 
 TodosState _$TodosStateFromJson(Map<String, dynamic> json) => TodosState(
-  todos:
-      (json['todos'] as List<dynamic>?)
-          ?.map((e) => Todo.fromJson(e as Map<String, dynamic>))
-          .toList() ??
-      const [],
+  todos: (json['todos'] as List<dynamic>)
+      .map((e) => Todo.fromJson(e as Map<String, dynamic>))
+      .toList(),
 );
 
 Map<String, dynamic> _$TodosStateToJson(TodosState instance) =>

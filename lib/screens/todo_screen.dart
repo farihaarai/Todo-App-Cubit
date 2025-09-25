@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:todo_app_cubit/cubit/todos_cubit.dart';
 import 'package:todo_app_cubit/cubit/users_cubit.dart';
+import 'package:todo_app_cubit/models/states/todos_state.dart';
 import 'package:todo_app_cubit/models/user.dart';
 
 class TodoScreen extends StatelessWidget {
@@ -52,16 +54,16 @@ class TodoScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "👋 Welcome, ${user.name}",
+                      " Welcome, ${user.name}",
                       style: const TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                     const SizedBox(height: 5),
-                    Text("📧 ${user.email}"),
-                    Text("🎂 Age: ${user.age}"),
-                    Text("⚧ Gender: ${user.gender}"),
+                    Text(" ${user.email}"),
+                    Text(" Age: ${user.age}"),
+                    Text(" Gender: ${user.gender}"),
                     const Divider(height: 30),
                   ],
                 );
@@ -84,7 +86,7 @@ class TodoScreen extends StatelessWidget {
                   onPressed: () {
                     final todo = _textController.text.trim();
                     if (todo.isNotEmpty) {
-                      // TODO: add todo to cubit
+                      // TODO: add todo
                       ScaffoldMessenger.of(
                         context,
                       ).showSnackBar(SnackBar(content: Text('Added: $todo')));
@@ -100,20 +102,59 @@ class TodoScreen extends StatelessWidget {
 
             // Todo List
             Expanded(
-              child: ListView.builder(
-                itemCount: 5,
-                itemBuilder: (context, index) {
-                  return Card(
-                    child: ListTile(
-                      leading: const Icon(Icons.check_box_outline_blank),
-                      title: Text("Todo item #$index"),
-                      trailing: IconButton(
-                        icon: const Icon(Icons.delete, color: Colors.red),
-                        onPressed: () {
-                          // TODO: remove todo
-                        },
-                      ),
-                    ),
+              child: BlocBuilder<TodosCubit, TodosState>(
+                // buildWhen: (previous, current) {
+                //   bool rebuild = (previous == current);
+                //   print("Rebuild? : $rebuild");
+                //   return rebuild;
+                // },
+                builder: (BuildContext context, TodosState state) {
+                  print("In Builder: ${state.todos.length}");
+                  if (state.todos.isEmpty) {
+                    return const Center(child: Text("No todos found"));
+                  }
+                  return ListView.builder(
+                    itemCount: state.todos.length,
+                    itemBuilder: (context, index) {
+                      final todo = state.todos[index];
+                      return Card(
+                        child: ListTile(
+                          leading: Checkbox(
+                            value: todo.isCompleted ?? false,
+                            onChanged: (val) {
+                              if (val != null) {
+                                context.read<TodosCubit>().toggleTodoCompletion(
+                                  todo,
+                                  val,
+                                );
+                              }
+                            },
+                          ),
+                          title: Text(todo.description),
+                          trailing: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              IconButton(
+                                onPressed: () {
+                                  context.go('/edit-todo');
+                                },
+                                icon: const Icon(
+                                  Icons.edit,
+                                  color: Colors.blue,
+                                ),
+                              ),
+                              IconButton(
+                                onPressed: () {},
+                                icon: const Icon(
+                                  Icons.delete,
+                                  color: Colors.red,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+                    },
                   );
                 },
               ),

@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:todo_app_cubit/models/requests/auth_requests.dart';
 import 'package:todo_app_cubit/models/responses/auth_response.dart';
+import 'package:todo_app_cubit/models/todo.dart';
 import 'package:todo_app_cubit/models/user.dart';
 
 part 'rest_client.g.dart';
@@ -27,13 +28,17 @@ abstract class AuthRequestRestClient {
     @Query("password") String password,
   );
 
+  // ---------- USER -----------
   @GET("/user")
   Future<User> getCurrentUser();
 
-  // ---------- USER -----------
   @PUT("/user/password")
   Future<User> changePassword(@Body() ChangePasswordRequest request);
 
   @PUT("/user")
   Future<User> updateUserProfile(@Body() UpdateUserRequest request);
+
+  // ---------- TODOS -----------
+  @GET('/user/toDo')
+  Future<List<Todo>> getUserTodos();
 }
