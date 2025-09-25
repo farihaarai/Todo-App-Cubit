@@ -5,13 +5,13 @@ part 'todo_requests.g.dart';
 
 @JsonSerializable()
 @CopyWith()
-class AddTodoRequest {
+class TodoRequest {
   final String description;
 
-  AddTodoRequest({required this.description});
+  TodoRequest({required this.description});
 
-  factory AddTodoRequest.fromJson(Map<String, dynamic> json) =>
-      _$AddTodoRequestFromJson(json);
+  factory TodoRequest.fromJson(Map<String, dynamic> json) =>
+      _$TodoRequestFromJson(json);
 
-  Map<String, dynamic> toJson() => _$AddTodoRequestToJson(this);
+  Map<String, dynamic> toJson() => _$TodoRequestToJson(this);
 }

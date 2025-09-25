@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:todo_app_cubit/cubit/users_cubit.dart';
 import 'package:todo_app_cubit/screens/change_password.dart';
 import 'package:todo_app_cubit/screens/edit_profile.dart';
+import 'package:todo_app_cubit/screens/edit_todo.dart';
 import 'package:todo_app_cubit/screens/login_screen.dart';
 import 'package:todo_app_cubit/screens/signup_screen.dart';
 import 'package:todo_app_cubit/screens/todo_screen.dart';
@@ -21,5 +22,10 @@ final GoRouter appRouter = GoRouter(
       builder: (context, state) =>
           EditProfileScreen(user: context.read<UsersCubit>().state!),
     ),
+    // GoRoute(
+    //   path: '/edit-todo',
+    //   builder: (context, state) =>
+    //       // EditTodoScreen(initialText: initialText, todoId: todoId)
+    // ),
   ],
 );

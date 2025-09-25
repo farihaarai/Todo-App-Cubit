@@ -6,40 +6,39 @@ part of 'todo_requests.dart';
 // CopyWithGenerator
 // **************************************************************************
 
-abstract class _$AddTodoRequestCWProxy {
-  AddTodoRequest description(String description);
+abstract class _$TodoRequestCWProxy {
+  TodoRequest description(String description);
 
   /// Creates a new instance with the provided field values.
-  /// Passing `null` to a nullable field nullifies it, while `null` for a non-nullable field is ignored. To update a single field use `AddTodoRequest(...).copyWith.fieldName(value)`.
+  /// Passing `null` to a nullable field nullifies it, while `null` for a non-nullable field is ignored. To update a single field use `TodoRequest(...).copyWith.fieldName(value)`.
   ///
   /// Example:
   /// ```dart
-  /// AddTodoRequest(...).copyWith(id: 12, name: "My name")
+  /// TodoRequest(...).copyWith(id: 12, name: "My name")
   /// ```
-  AddTodoRequest call({String description});
+  TodoRequest call({String description});
 }
 
 /// Callable proxy for `copyWith` functionality.
-/// Use as `instanceOfAddTodoRequest.copyWith(...)` or call `instanceOfAddTodoRequest.copyWith.fieldName(value)` for a single field.
-class _$AddTodoRequestCWProxyImpl implements _$AddTodoRequestCWProxy {
-  const _$AddTodoRequestCWProxyImpl(this._value);
+/// Use as `instanceOfTodoRequest.copyWith(...)` or call `instanceOfTodoRequest.copyWith.fieldName(value)` for a single field.
+class _$TodoRequestCWProxyImpl implements _$TodoRequestCWProxy {
+  const _$TodoRequestCWProxyImpl(this._value);
 
-  final AddTodoRequest _value;
+  final TodoRequest _value;
 
   @override
-  AddTodoRequest description(String description) =>
-      call(description: description);
+  TodoRequest description(String description) => call(description: description);
 
   @override
   /// Creates a new instance with the provided field values.
-  /// Passing `null` to a nullable field nullifies it, while `null` for a non-nullable field is ignored. To update a single field use `AddTodoRequest(...).copyWith.fieldName(value)`.
+  /// Passing `null` to a nullable field nullifies it, while `null` for a non-nullable field is ignored. To update a single field use `TodoRequest(...).copyWith.fieldName(value)`.
   ///
   /// Example:
   /// ```dart
-  /// AddTodoRequest(...).copyWith(id: 12, name: "My name")
+  /// TodoRequest(...).copyWith(id: 12, name: "My name")
   /// ```
-  AddTodoRequest call({Object? description = const $CopyWithPlaceholder()}) {
-    return AddTodoRequest(
+  TodoRequest call({Object? description = const $CopyWithPlaceholder()}) {
+    return TodoRequest(
       description:
           description == const $CopyWithPlaceholder() || description == null
           ? _value.description
@@ -49,19 +48,19 @@ class _$AddTodoRequestCWProxyImpl implements _$AddTodoRequestCWProxy {
   }
 }
 
-extension $AddTodoRequestCopyWith on AddTodoRequest {
+extension $TodoRequestCopyWith on TodoRequest {
   /// Returns a callable class used to build a new instance with modified fields.
-  /// Example: `instanceOfAddTodoRequest.copyWith(...)` or `instanceOfAddTodoRequest.copyWith.fieldName(...)`.
+  /// Example: `instanceOfTodoRequest.copyWith(...)` or `instanceOfTodoRequest.copyWith.fieldName(...)`.
   // ignore: library_private_types_in_public_api
-  _$AddTodoRequestCWProxy get copyWith => _$AddTodoRequestCWProxyImpl(this);
+  _$TodoRequestCWProxy get copyWith => _$TodoRequestCWProxyImpl(this);
 }
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-AddTodoRequest _$AddTodoRequestFromJson(Map<String, dynamic> json) =>
-    AddTodoRequest(description: json['description'] as String);
+TodoRequest _$TodoRequestFromJson(Map<String, dynamic> json) =>
+    TodoRequest(description: json['description'] as String);
 
-Map<String, dynamic> _$AddTodoRequestToJson(AddTodoRequest instance) =>
+Map<String, dynamic> _$TodoRequestToJson(TodoRequest instance) =>
     <String, dynamic>{'description': instance.description};

@@ -91,7 +91,7 @@ class TodoScreen extends StatelessWidget {
                         final todo = _textController.text.trim();
                         if (todo.isNotEmpty) {
                           context.read<TodosCubit>().addTodo(
-                            AddTodoRequest(description: todo),
+                            TodoRequest(description: todo),
                           );
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(content: Text('Added: $todo')),
@@ -152,7 +152,21 @@ class TodoScreen extends StatelessWidget {
                                 ),
                               ),
                               IconButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  // final todoId = todo.id;
+                                  context.read<TodosCubit>().deleteTodo(
+                                    todo.id,
+                                  );
+
+                                  // Optional: show a snackbar
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text(
+                                        'Deleted: ${todo.description}',
+                                      ),
+                                    ),
+                                  );
+                                },
                                 icon: const Icon(
                                   Icons.delete,
                                   color: Colors.red,

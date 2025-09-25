@@ -44,5 +44,11 @@ abstract class AuthRequestRestClient {
   Future<List<Todo>> getUserTodos();
 
   @POST('/user/toDo')
-  Future<Todo> addTodo(@Body() AddTodoRequest request);
+  Future<Todo> addTodo(@Body() TodoRequest request);
+
+  @PUT('/user/toDo/{id}')
+  Future<Todo> updateTodo(@Path("id") int id, @Body() TodoRequest request);
+
+  @DELETE('/user/toDo/{id}')
+  Future<void> deletTodo(@Path("id") int id);
 }
