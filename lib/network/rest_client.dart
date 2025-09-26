@@ -17,17 +17,23 @@ abstract class AuthRequestRestClient {
   Future<AuthResponse> login(@Body() LoginRequest request);
 
   // @MultiPart()
-  // @POST("/registerUser")
-  // Future<AuthResponse> signup(@Body() SignupRequest request);
-
-  @GET("/registerUserGet")
+  @POST("/registerUser")
   Future<AuthResponse> signup(
-    @Query("name") String name,
-    @Query("email") String email,
-    @Query("gender") String gender,
-    @Query("age") int age,
-    @Query("password") String password,
+    @Part() String name,
+    @Part() String email,
+    @Part() String gender,
+    @Part() int age,
+    @Part() String password,
   );
+
+  // @GET("/registerUserGet")
+  // Future<AuthResponse> signup(
+  //   @Query("name") String name,
+  //   @Query("email") String email,
+  //   @Query("gender") String gender,
+  //   @Query("age") int age,
+  //   @Query("password") String password,
+  // );
 
   // ---------- USER -----------
   @GET("/user")

@@ -27,17 +27,19 @@ class UsersCubit extends Cubit<User?> {
   }
 
   // SIGNUP
-  Future<User?> signup(SignupRequest requests) async {
+  Future<User?> signup(SignupRequest req) async {
     try {
       final response = await client.signup(
-        requests.name,
-        requests.email,
-        requests.gender,
-        requests.age,
-        requests.password,
+        req.name,
+        req.email,
+        req.gender,
+        req.age,
+        req.password,
       );
+
       token = response.jwtToken;
       setAuthToken(token);
+
       final user = await getUser();
       return user;
     } catch (e) {
@@ -45,6 +47,25 @@ class UsersCubit extends Cubit<User?> {
       return null;
     }
   }
+
+  // Future<User?> signup(SignupRequest requests) async {
+  //   try {
+  //     final response = await client.signup(
+  //       requests.name,
+  //       requests.email,
+  //       requests.gender,
+  //       requests.age,
+  //       requests.password,
+  //     );
+  //     token = response.jwtToken;
+  //     setAuthToken(token);
+  //     final user = await getUser();
+  //     return user;
+  //   } catch (e) {
+  //     print("Signup failed: $e");
+  //     return null;
+  //   }
+  // }
 
   // FETCH CURRENT USER
   Future<User?> getUser() async {

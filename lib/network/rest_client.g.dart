@@ -56,20 +56,19 @@ class _AuthRequestRestClient implements AuthRequestRestClient {
     String password,
   ) async {
     final _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{
-      r'name': name,
-      r'email': email,
-      r'gender': gender,
-      r'age': age,
-      r'password': password,
-    };
+    final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    const Map<String, dynamic>? _data = null;
+    final _data = FormData();
+    _data.fields.add(MapEntry('name', name));
+    _data.fields.add(MapEntry('email', email));
+    _data.fields.add(MapEntry('gender', gender));
+    _data.fields.add(MapEntry('age', age.toString()));
+    _data.fields.add(MapEntry('password', password));
     final _options = _setStreamType<AuthResponse>(
-      Options(method: 'GET', headers: _headers, extra: _extra)
+      Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            '/registerUserGet',
+            '/registerUser',
             queryParameters: queryParameters,
             data: _data,
           )
